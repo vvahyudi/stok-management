@@ -4,7 +4,7 @@ const wrapper = require("../utils/wrapper")
 module.exports = {
 	getAllHistoryStock: async (request, response) => {
 		try {
-			let { page, limit, sort, search } = request.query
+			let { page, limit } = request.query
 			page = +page
 			limit = +limit
 			const totalData = await historyStockModel.getCountHistoryStock()
@@ -16,24 +16,24 @@ module.exports = {
 				totalData,
 			}
 			const offset = (page - 1) * limit
-			let sortColumn = "product_id"
-			let sortType = "asc"
-			if (sort) {
-				sortColumn = sort.split(".")[0]
-				sortType = sort.split(".")[1]
-			}
-			if (sortType.toLowerCase() === "asc") {
-				sortType = true
-			} else {
-				sortType = false
-			}
+			// let sortColumn = "product_id"
+			// let sortType = "asc"
+			// if (sort) {
+			// 	sortColumn = sort.split(".")[0]
+			// 	sortType = sort.split(".")[1]
+			// }
+			// if (sortType.toLowerCase() === "asc") {
+			// 	sortType = true
+			// } else {
+			// 	sortType = false
+			// }
 
 			const result = await historyStockModel.getAllHistoryStock(
 				offset,
 				limit,
-				sortColumn,
-				search,
-				sortType,
+				// sortColumn,
+				// search,
+				// sortType,
 			)
 			console.log(result)
 			return wrapper.response(
@@ -111,7 +111,8 @@ module.exports = {
 						? `Stok untuk produk id : ${product_id} bertambah sebanyak ${qty}`
 						: note,
 			}
-			result = await historyStockModel.createHistoryStock(setData)
+			await historyStockModel.createHistoryStock(setData)
+
 			return wrapper.response(
 				response,
 				200,

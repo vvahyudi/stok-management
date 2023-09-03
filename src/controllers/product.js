@@ -52,7 +52,7 @@ module.exports = {
 		try {
 			const { id } = request.params
 			const result = await productModel.getProductById(id)
-			console.log(result)
+
 			if (result.data.length < 1) {
 				return wrapper.response(
 					response,
@@ -63,22 +63,31 @@ module.exports = {
 			}
 			console.log(result.data[0])
 			const productData = result.data[0]
-			let stock = productData.stock
-			const historyResult =
-				await historyStockModel.getHistoryStockByProductId(id)
-			historyResult.data.forEach((history) => {
-				if (history.stock_type === 0) {
-					stock -= history.qty
-				} else if (history.stock_type === 1) {
-					stock += history.qty
-				}
-			})
-			productData.stock = stock
+			console.log(productData)
+			let newStock = productData.stock
+
+			const qty = productData.tb_history_stock[0].qty
+			const stock_type = productData.tb_history_stock[0].stock_type
+
+			console.log(stock_type)
+			console.log(qty)
+			if (stock_type == 0) {
+				newStock -= qty
+			} else {
+				newStock += qty
+			}
+			console.log(newStock)
+			const setData = {
+				stock: newStock,
+			}
+			await productModel.updateProductStock(id, setData)
+			const updatedProduct = await productModel.getProductById(id)
+			console.log(updatedProduct)
 			return wrapper.response(
 				response,
 				200,
 				"Success Get Product By Id",
-				productData,
+				updatedProduct.data[0],
 			)
 		} catch (error) {
 			return wrapper.response(response, 500, error.message, error)

@@ -14,14 +14,14 @@ module.exports = {
 					}
 				})
 		}),
-	getAllHistoryStock: (offset, limit, sortColumn, search, sortType) =>
+	getAllHistoryStock: (offset, limit) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
 				.select("*")
 				.range(offset, offset + limit - 1)
-				.order(sortColumn, { ascending: sortType })
-				.like("product_id", `%${search}%`)
+				// .order(sortColumn, { ascending: sortType })
+				// .like("product_id", `%${search}%`)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)

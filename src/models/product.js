@@ -35,9 +35,14 @@ module.exports = {
 			supabase
 				.from("tb_products")
 				.select(
-					"name, price, description, picture, stock, tb_history_stock(product_id, qty)",
+					"name, price, description, picture, stock, tb_history_stock(product_id, stock_type, qty,created_at)",
 				)
 				.eq("id", id)
+				.order("created_at", {
+					foreignTable: "tb_history_stock",
+					ascending: false,
+				}) // Menyortir berdasarkan createdAt dalam urutan menurun
+				.limit(1)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)
@@ -60,6 +65,20 @@ module.exports = {
 				})
 		}),
 	updateProduct: (id, data) =>
+		new Promise((resolve, reject) => {
+			supabase
+				.from("tb_products")
+				.update(data)
+				.eq("id", id)
+				.then((result) => {
+					if (!result.error) {
+						resolve(result)
+					} else {
+						reject(result)
+					}
+				})
+		}),
+	updateProductStock: (id, data) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_products")
