@@ -82,7 +82,7 @@ module.exports = {
 			}
 			await productModel.updateProductStock(id, setData)
 			const updatedProduct = await productModel.getProductById(id)
-			console.log(updatedProduct)
+			console.log(updatedProduct.data[0])
 			return wrapper.response(
 				response,
 				200,
