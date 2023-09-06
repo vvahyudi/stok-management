@@ -34,15 +34,8 @@ module.exports = {
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_products")
-				.select(
-					"name, price, description, picture, stock, tb_history_stock(product_id, stock_type, qty,created_at)",
-				)
+				.select("*")
 				.eq("id", id)
-				.order("created_at", {
-					foreignTable: "tb_history_stock",
-					ascending: false,
-				}) // Menyortir berdasarkan createdAt dalam urutan menurun
-				.limit(1)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)

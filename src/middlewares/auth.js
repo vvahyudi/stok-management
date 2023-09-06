@@ -35,10 +35,21 @@ module.exports = {
 			console.log(error)
 		}
 	},
-	authorization: async (request, response, next) => {
+	authorizationAdmin: async (request, response, next) => {
 		try {
 			const { role } = request.user
 			if (role !== "admin") {
+				return wrapper.response(response, 403, "Access Denied", null)
+			}
+			next()
+		} catch (error) {
+			console.log(error)
+		}
+	},
+	authorizationOperator: async (request, response, next) => {
+		try {
+			const { role } = request.user
+			if (role !== "operator") {
 				return wrapper.response(response, 403, "Access Denied", null)
 			}
 			next()

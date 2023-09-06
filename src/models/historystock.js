@@ -31,12 +31,12 @@ module.exports = {
 				})
 		}),
 
-	getHistoryStockByProductId: (productId) =>
+	getHistoryStockByProductId: (id) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
 				.select("*")
-				.eq("product_id", productId)
+				.eq("product_id", id)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)
@@ -45,21 +45,8 @@ module.exports = {
 					}
 				})
 		}),
-	getHistoryStockById: (id) =>
-		new Promise((resolve, reject) => {
-			supabase
-				.from("tb_history_stock")
-				.select("*")
-				.eq("id", id)
-				.then((result) => {
-					if (!result.error) {
-						resolve(result)
-					} else {
-						reject(result)
-					}
-				})
-		}),
-	createHistoryStock: (data) =>
+
+	addOrReduceStockByProductId: (data) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
@@ -77,21 +64,7 @@ module.exports = {
 			supabase
 				.from("tb_products")
 				.update(data)
-				.eq("product_id", productId)
-				.then((result) => {
-					if (!result.error) {
-						resolve(result)
-					} else {
-						reject(result)
-					}
-				})
-		}),
-	deleteStockByProductId: (productId) =>
-		new Promise((resolve, reject) => {
-			supabase
-				.from("tb_products")
-				.delete()
-				.eq("product_id", productId)
+				.eq("id", productId)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)

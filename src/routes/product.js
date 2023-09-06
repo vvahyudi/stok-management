@@ -4,18 +4,28 @@ const productController = require("../controllers/product")
 const authMiddleware = require("../middlewares/auth")
 const uploadMiddleware = require("../middlewares/uploadImages")
 
-Router.get("/", productController.getAllProduct)
-Router.get("/:id", productController.getProductById)
+Router.get("/", authMiddleware.authentication, productController.getAllProduct)
+Router.get(
+	"/:id",
+	authMiddleware.authentication,
+	productController.getProductById,
+)
 Router.post(
 	"/",
+	authMiddleware.authorizationOperator,
 	uploadMiddleware.uploadProduct,
 	productController.createProduct,
 )
 Router.patch(
 	"/:id",
+	authMiddleware.authentication,
 	uploadMiddleware.uploadProduct,
 	productController.updateProduct,
 )
 
-Router.delete("/:id", productController.deleteProduct)
+Router.delete(
+	"/:id",
+	authMiddleware.authentication,
+	productController.deleteProduct,
+)
 module.exports = Router

@@ -3,12 +3,30 @@ const Router = express.Router()
 const historyStockController = require("../controllers/historystock")
 const authMiddleware = require("../middlewares/auth")
 
-Router.get("/", historyStockController.getAllHistoryStock)
-Router.get("/:product_id", historyStockController.getHistoryStockByProductId)
-Router.get("/:id", historyStockController.getHistoryStockById)
-Router.post("/", historyStockController.createHistoryStock)
-Router.patch("/:product_id", historyStockController.updateStockByProductId)
+Router.get(
+	"/",
+	authMiddleware.authentication,
+	historyStockController.getAllHistoryStock,
+)
+Router.get("/:id", historyStockController.getHistoryStockByProductId)
 
-Router.delete("/:product_id", historyStockController.deleteStockByProductId)
+Router.post(
+	"/add",
+	authMiddleware.authentication,
+	authMiddleware.authorizationAdmin,
+	historyStockController.addStockByProductId,
+)
+Router.post(
+	"/reduce",
+	authMiddleware.authentication,
+	authMiddleware.authorizationAdmin,
+	historyStockController.reduceStockByProductId,
+)
+Router.patch(
+	"/:product_id",
+	authMiddleware.authentication,
+	authMiddleware.authorizationAdmin,
+	historyStockController.updateStockByProductId,
+)
 
 module.exports = Router
