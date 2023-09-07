@@ -18,10 +18,10 @@ module.exports = {
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_users")
-				.select("*")
+				.select("id, username, picture, role, created_at")
 				.range(offset, offset + limit - 1)
 				.order(sortColumn, { ascending: sortType })
-				.like("role", `%${search}%`)
+				.like("username", `%${search}%`)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)

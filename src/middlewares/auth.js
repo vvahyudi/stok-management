@@ -37,8 +37,8 @@ module.exports = {
 	},
 	authorizationAdmin: async (request, response, next) => {
 		try {
-			const { role } = request.user
-			if (role !== "admin") {
+			const role = request.user.role
+			if (role !== "0") {
 				return wrapper.response(response, 403, "Access Denied", null)
 			}
 			next()
@@ -48,8 +48,9 @@ module.exports = {
 	},
 	authorizationOperator: async (request, response, next) => {
 		try {
-			const { role } = request.user
-			if (role !== "operator") {
+			const role = request.user.role
+
+			if (role !== "1") {
 				return wrapper.response(response, 403, "Access Denied", null)
 			}
 			next()

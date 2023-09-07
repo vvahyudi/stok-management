@@ -8,24 +8,28 @@ Router.get(
 	authMiddleware.authentication,
 	historyStockController.getAllHistoryStock,
 )
-Router.get("/:id", historyStockController.getHistoryStockByProductId)
+Router.get(
+	"/:id",
+	authMiddleware.authentication,
+	historyStockController.getHistoryStockByProductId,
+)
 
 Router.post(
 	"/add",
 	authMiddleware.authentication,
-	authMiddleware.authorizationAdmin,
+	authMiddleware.authorizationOperator,
 	historyStockController.addStockByProductId,
 )
 Router.post(
 	"/reduce",
 	authMiddleware.authentication,
-	authMiddleware.authorizationAdmin,
+	authMiddleware.authorizationOperator,
 	historyStockController.reduceStockByProductId,
 )
-Router.patch(
-	"/:product_id",
+Router.post(
+	"/:id",
 	authMiddleware.authentication,
-	authMiddleware.authorizationAdmin,
+	authMiddleware.authorizationOperator,
 	historyStockController.updateStockByProductId,
 )
 

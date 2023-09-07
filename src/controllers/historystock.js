@@ -88,7 +88,7 @@ module.exports = {
 	},
 	reduceStockByProductId: async (request, response) => {
 		try {
-			const { product_id, stock_type, qty, note } = request.body
+			const { product_id, qty, note } = request.body
 			const productData = await productModel.getProductById(product_id)
 			console.log(productData.data[0].stock)
 			const stockProduct = productData.data[0].stock
@@ -118,25 +118,35 @@ module.exports = {
 	},
 	updateStockByProductId: async (request, response) => {
 		try {
-			const { productId } = request.params
-			const { stockType, qty, note } = request.body
+			const { id } = request.params
+			const { qty, note } = request.body
 			const checkProductId =
-				await historyStockModel.getHistoryStockByProductId(productId)
+				await historyStockModel.getHistoryStockByProductId(id)
 			if (checkProductId.data.length < 1) {
 				return wrapper.response(
 					response,
 					404,
-					`Data With ${productId} Not Found`,
+					`Data With product id ${productId} Not Found`,
 					[],
 				)
 			}
+			const setStock = {
+				stock: qty,
+			}
+			await historyStockModel.updateStockByProductId(id, setStock)
 			const setData = {
-				stockType,
+				product_id: id,
+				stock_type: 2,
 				qty,
 				note,
 			}
-			await historyStockModel.updateStockByProductId(productId, setData)
-			return wrapper.response(response, 200, "Success Create Product", setData)
+			await historyStockModel.addOrReduceStockByProductId(setData)
+			return wrapper.response(
+				response,
+				200,
+				`Success Update Stock for product id ${id}`,
+				setData,
+			)
 		} catch (error) {
 			return wrapper.response(response, 500, error.message, error)
 		}

@@ -46,7 +46,7 @@ module.exports = {
 				role: !checkUser.data[0].role ? "user" : checkUser.data[0].role,
 			}
 			delete payload.password
-			const token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "300s" })
+			const token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "1d" })
 			console.log(token)
 			const refreshToken = jwt.sign(payload, JWT_REFRESH_KEYS, {
 				expiresIn: "600s",
@@ -99,7 +99,7 @@ module.exports = {
 					id: result.id,
 					role: !result.role ? "user" : result.role,
 				}
-				token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "60s" })
+				token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "1d" })
 				newRefreshToken = jwt.sign(payload, JWT_REFRESH_KEYS, {
 					expiresIn: "2h",
 				})

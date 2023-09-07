@@ -9,7 +9,7 @@ module.exports = {
 			let { page, limit, sort, search } = request.query
 			page = +page
 			limit = +limit
-			const totalData = await productModel.getCountProduct()
+			const totalData = await userModel.getCountUser()
 			const totalPage = Math.ceil(totalData / limit)
 			const pagination = {
 				page,
@@ -18,7 +18,7 @@ module.exports = {
 				totalData,
 			}
 			const offset = (page - 1) * limit
-			let sortColumn = "role"
+			let sortColumn = "username"
 			let sortType = "asc"
 			if (sort) {
 				sortColumn = sort.split(".")[0]
@@ -37,7 +37,7 @@ module.exports = {
 				search,
 				sortType,
 			)
-			console.log(result)
+
 			return wrapper.response(
 				response,
 				200,

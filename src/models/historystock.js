@@ -59,12 +59,12 @@ module.exports = {
 					}
 				})
 		}),
-	updateStockByProductId: (productId, data) =>
+	updateStockByProductId: (id, data) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_products")
 				.update(data)
-				.eq("id", productId)
+				.eq("id", id)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)
