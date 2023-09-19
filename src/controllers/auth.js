@@ -43,17 +43,18 @@ module.exports = {
 
 			const payload = {
 				id: checkUser.data[0].id,
-				role: !checkUser.data[0].role ? "user" : checkUser.data[0].role,
+				role: !checkUser.data[0].role ? "1" : checkUser.data[0].role,
 			}
 			delete payload.password
 			const token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "1d" })
 			console.log(token)
 			const refreshToken = jwt.sign(payload, JWT_REFRESH_KEYS, {
-				expiresIn: "600s",
+				expiresIn: "1d",
 			})
 
 			return wrapper.response(response, 200, "Login Successful", {
-				id: payload.id,
+				username,
+				role: payload.role,
 				token,
 				refreshToken,
 			})
@@ -97,7 +98,7 @@ module.exports = {
 				}
 				payload = {
 					id: result.id,
-					role: !result.role ? "user" : result.role,
+					role: !result.role ? "1" : result.role,
 				}
 				token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "1d" })
 				newRefreshToken = jwt.sign(payload, JWT_REFRESH_KEYS, {
