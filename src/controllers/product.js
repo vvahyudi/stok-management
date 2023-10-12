@@ -64,7 +64,7 @@ module.exports = {
 				response,
 				200,
 				"Success Get Product By Id",
-				result.data,
+				result.data[0],
 			)
 		} catch (error) {
 			return wrapper.response(response, 500, error.message, error)

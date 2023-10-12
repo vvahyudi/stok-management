@@ -47,7 +47,7 @@ module.exports = {
 			}
 			delete payload.password
 			const token = jwt.sign(payload, JWT_ACCESS_KEYS, { expiresIn: "1d" })
-			console.log(token)
+
 			const refreshToken = jwt.sign(payload, JWT_REFRESH_KEYS, {
 				expiresIn: "1d",
 			})
@@ -90,7 +90,7 @@ module.exports = {
 					null,
 				)
 			}
-			console.log(refreshToken)
+
 			let token, payload, newRefreshToken
 			jwt.verify(refreshToken, JWT_REFRESH_KEYS, (error, result) => {
 				if (error) {
@@ -105,7 +105,6 @@ module.exports = {
 					expiresIn: "2h",
 				})
 				client.setEx(`refreshToken:${refreshToken}`, 3600 * 2, refreshToken)
-				console.table({ token, newRefreshToken })
 			})
 			return wrapper.response(response, 200, "Success Refresh Token", {
 				id: payload.id,
