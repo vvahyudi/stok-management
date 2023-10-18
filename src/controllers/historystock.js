@@ -58,7 +58,8 @@ module.exports = {
 
 	addStockByProductId: async (request, response) => {
 		try {
-			const { product_id, stock_type, qty, note } = request.body
+			const { product_id, qty, note } = request.body
+			const stock_type = 1
 			const productData = await productModel.getProductById(product_id)
 			console.log(productData.data[0].stock)
 			const stockProduct = productData.data[0].stock
@@ -70,7 +71,7 @@ module.exports = {
 			await historyStockModel.updateStockByProductId(product_id, setStock)
 			const setData = {
 				product_id,
-				stock_type: 1,
+				stock_type,
 				qty,
 				note: `Adding stock by ${qty} for product id ${product_id}`,
 			}
@@ -89,6 +90,7 @@ module.exports = {
 	reduceStockByProductId: async (request, response) => {
 		try {
 			const { product_id, qty, note } = request.body
+			const stock_type = 0
 			const productData = await productModel.getProductById(product_id)
 			console.log(productData.data[0].stock)
 			const stockProduct = productData.data[0].stock
@@ -100,7 +102,7 @@ module.exports = {
 			await historyStockModel.updateStockByProductId(product_id, setStock)
 			const setData = {
 				product_id,
-				stock_type: 0,
+				stock_type,
 				qty,
 				note: ` Stock Reduce by ${qty} for product id ${product_id}`,
 			}
@@ -120,6 +122,7 @@ module.exports = {
 		try {
 			const { id } = request.params
 			const { qty, note } = request.body
+			const stock_type = 2
 			const checkProductId =
 				await historyStockModel.getHistoryStockByProductId(id)
 			if (checkProductId.data.length < 1) {
@@ -136,7 +139,7 @@ module.exports = {
 			await historyStockModel.updateStockByProductId(id, setStock)
 			const setData = {
 				product_id: id,
-				stock_type: 2,
+				stock_type,
 				qty,
 				note,
 			}
