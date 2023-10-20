@@ -6,26 +6,6 @@ const authModel = require("../models/auth")
 const wrapper = require("../utils/wrapper")
 
 module.exports = {
-	// register: async (request, response) => {
-	// 	try {
-	// 		const { username, password, role } = request.body
-	// 		const { filename, mimetype } = request.file
-	// 		const setData = {
-	// 			username,
-	// 			password,
-	// 			picture: filename ? `${filename}.${mimetype.split("/")[1]}` : "",
-	// 			role: role ? role : "operator",
-	// 		}
-	// 		const salt = bcrypt.genSaltSync(10)
-	// 		const hashedPassword = bcrypt.hashSync(setData.password, salt)
-	// 		setData.password = hashedPassword
-
-	// 		await authModel.register(setData)
-	// 		return wrapper.response(response, 200, "Success Create User")
-	// 	} catch (error) {
-	// 		return wrapper.response(response, 500, error.message, error)
-	// 	}
-	// },
 	login: async (request, response) => {
 		try {
 			const { username, password } = request.body

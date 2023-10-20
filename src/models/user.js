@@ -44,4 +44,17 @@ module.exports = {
 					}
 				})
 		}),
+	addUser: (data) =>
+		new Promise((resolve, reject) => {
+			supabase
+				.from("tb_users")
+				.insert(data)
+				.then((result) => {
+					if (!result.error) {
+						resolve(result)
+					} else {
+						reject(result)
+					}
+				})
+		}),
 }

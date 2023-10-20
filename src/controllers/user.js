@@ -4,6 +4,26 @@ const wrapper = require("../utils/wrapper")
 const userModel = require("../models/user")
 
 module.exports = {
+	addUser: async (request, response) => {
+		try {
+			const { username, password } = request.body
+			const { filename, mimetype } = request.file
+			const setData = {
+				username,
+				password,
+				picture: filename ? `${filename}.${mimetype.split("/")[1]}` : null,
+				role: 1,
+			}
+			const salt = bcrypt.genSaltSync(10)
+			const hashedPassword = bcrypt.hashSync(setData.password, salt)
+			setData.password = hashedPassword
+
+			await userModel.addUser(setData)
+			return wrapper.response(response, 200, "Success Create User")
+		} catch (error) {
+			return wrapper.response(response, 500, error.message, error)
+		}
+	},
 	getAllUser: async (request, response) => {
 		try {
 			let { page, limit, sort, search } = request.query
