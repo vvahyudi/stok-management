@@ -4,11 +4,7 @@ const userController = require("../controllers/user")
 const authMiddleware = require("../middlewares/auth")
 const uploadMiddleware = require("../middlewares/uploadImages")
 
-Router.get(
-	"/:username",
-	authMiddleware.authentication,
-	userController.getUserByUsername,
-)
+Router.get("/:id", authMiddleware.authentication, userController.getUserById)
 Router.get(
 	"/",
 	authMiddleware.authentication,
@@ -21,6 +17,19 @@ Router.post(
 	authMiddleware.authorizationAdmin,
 	uploadMiddleware.uploadUser,
 	userController.addUser,
+)
+Router.patch(
+	"/:id",
+	authMiddleware.authentication,
+	authMiddleware.authorizationAdmin,
+	uploadMiddleware.uploadUser,
+	userController.updateUser,
+)
+Router.delete(
+	"/:id",
+	authMiddleware.authentication,
+	authMiddleware.authorizationAdmin,
+	userController.deleteUser,
 )
 
 module.exports = Router

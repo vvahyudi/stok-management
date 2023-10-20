@@ -30,12 +30,12 @@ module.exports = {
 					}
 				})
 		}),
-	getUserByUsername: (username) =>
+	getUserById: (id) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_users")
 				.select("*")
-				.eq("username", username)
+				.eq("id", id)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)
@@ -49,6 +49,34 @@ module.exports = {
 			supabase
 				.from("tb_users")
 				.insert(data)
+				.then((result) => {
+					if (!result.error) {
+						resolve(result)
+					} else {
+						reject(result)
+					}
+				})
+		}),
+	updateUser: (id, data) =>
+		new Promise((resolve, reject) => {
+			supabase
+				.from("tb_users")
+				.update(data)
+				.eq("id", id)
+				.then((result) => {
+					if (!result.error) {
+						resolve(result)
+					} else {
+						reject(result)
+					}
+				})
+		}),
+	deleteUser: (id) =>
+		new Promise((resolve, reject) => {
+			supabase
+				.from("tb_users")
+				.delete()
+				.eq("id", id)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)

@@ -94,8 +94,6 @@ module.exports = {
 	},
 	updateProduct: async (request, response) => {
 		try {
-			console.log(request.params)
-			console.log(request.body)
 			const { id } = request.params
 			const { name, price, description } = request.body
 			const { filename, mimetype } = request.file
