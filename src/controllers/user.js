@@ -42,7 +42,7 @@ module.exports = {
 				response,
 				200,
 				"Success Get All User",
-				result.data[0],
+				result.data,
 				pagination,
 			)
 		} catch (error) {
