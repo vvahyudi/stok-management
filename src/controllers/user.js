@@ -42,7 +42,7 @@ module.exports = {
 				response,
 				200,
 				"Success Get All User",
-				result.data,
+				result.data[0],
 				pagination,
 			)
 		} catch (error) {
@@ -53,6 +53,7 @@ module.exports = {
 		try {
 			const { id } = request.params
 			const result = await userModel.getUserById(id)
+			console.log(result.data[0])
 			if (result.length < 1) {
 				return wrapper.response(response, 404, "Username not found", [])
 			}
@@ -60,7 +61,7 @@ module.exports = {
 				response,
 				200,
 				`Success Get User By ID ${id}`,
-				result.data,
+				result.data[0],
 			)
 		} catch (error) {
 			return wrapper.response(response, 500, error.message, error)
