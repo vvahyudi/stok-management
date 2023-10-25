@@ -52,7 +52,7 @@ module.exports = {
 	getUserById: async (request, response) => {
 		try {
 			const { id } = request.params
-			const result = await authModel.getUserById(id)
+			const result = await userModel.getUserById(id)
 			if (result.length < 1) {
 				return wrapper.response(response, 404, "Username not found", [])
 			}
