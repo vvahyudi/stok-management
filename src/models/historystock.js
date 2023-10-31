@@ -18,7 +18,7 @@ module.exports = {
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
-				.select("*")
+				.select(`*,tb_products(name)`)
 				.range(offset, offset + limit - 1)
 				// .order(sortColumn, { ascending: sortType })
 				// .like("product_id", `%${search}%`)
