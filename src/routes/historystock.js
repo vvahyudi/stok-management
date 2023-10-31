@@ -27,7 +27,7 @@ Router.post(
 	historyStockController.reduceStockByProductId,
 )
 Router.post(
-	"/:id",
+	"/update",
 	authMiddleware.authentication,
 	authMiddleware.authorizationOperator,
 	historyStockController.updateStockByProductId,

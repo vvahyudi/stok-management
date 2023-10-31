@@ -94,9 +94,9 @@ module.exports = {
 			const { product_id, qty, note } = request.body
 			const stock_type = 0
 			const productData = await productModel.getProductById(product_id)
-			console.log(productData.data[0].stock)
+			// console.log(productData.data[0].stock)
 			const stockProduct = productData.data[0].stock
-			console.log(stockProduct)
+			// console.log(stockProduct)
 			const total = stockProduct - parseInt(qty)
 			const setStock = {
 				stock: total,
@@ -122,13 +122,13 @@ module.exports = {
 			return wrapper.response(response, 500, error.message, error)
 		}
 	},
+
 	updateStockByProductId: async (request, response) => {
 		try {
-			const { id } = request.params
-			const { qty, note } = request.body
+			const { product_id, qty, note } = request.body
 			const stock_type = 2
 			const checkProductId =
-				await historyStockModel.getHistoryStockByProductId(id)
+				await historyStockModel.getHistoryStockByProductId(product_id)
 			if (checkProductId.data.length < 1) {
 				return wrapper.response(
 					response,
@@ -140,9 +140,9 @@ module.exports = {
 			const setStock = {
 				stock: qty,
 			}
-			await historyStockModel.updateStockByProductId(id, setStock)
+			await historyStockModel.updateStockByProductId(product_id, setStock)
 			const setData = {
-				product_id: id,
+				product_id,
 				stock_type,
 				qty,
 				note,
