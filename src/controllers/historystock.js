@@ -122,7 +122,6 @@ module.exports = {
 			return wrapper.response(response, 500, error.message, error)
 		}
 	},
-
 	updateStockByProductId: async (request, response) => {
 		try {
 			const { product_id, qty, note } = request.body
