@@ -73,7 +73,9 @@ module.exports = {
 				product_id,
 				stock_type,
 				qty,
-				note: `Adding stock by ${qty} for product id ${product_id}`,
+				note: note
+					? note
+					: `Adding stock by ${qty} for product id ${product_id}`,
 			}
 			await historyStockModel.addOrReduceStockByProductId(setData)
 
@@ -104,7 +106,9 @@ module.exports = {
 				product_id,
 				stock_type,
 				qty,
-				note: ` Stock Reduce by ${qty} for product id ${product_id}`,
+				note: note
+					? note
+					: `Stock Reduce by ${qty} for product id ${product_id}`,
 			}
 			await historyStockModel.addOrReduceStockByProductId(setData)
 

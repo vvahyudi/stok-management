@@ -37,3 +37,9 @@ tbl_product 1 indomie 2500 null indomie.png 7 tbl_history_stock 1 28agustus 1 0 
 3. total = (type: stock out) field stock dari data product - qty total = 90
 4. update stock di tbl_product, UPDATE product set stock=total where id=product_id
 5. insert data ke tbl_stock_history => {product_id, qty: 10, remark, type}
+
+total stok yg ada di product dan gudang
+
+clientside express nodejs api relational / non relational
+
+FEEDBACK: LIMIT, PAGE, DIBUAT DEFAULT VALUE DI BACKEND JIKA DATA DETAIL KOSONG -> STATUSNYA DIBUAT 404, JIKA STATUS 200 DI FRONTEND AKAN MENCARI PROPERTY USERNAME, PICTURE

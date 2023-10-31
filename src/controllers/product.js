@@ -20,6 +20,7 @@ module.exports = {
 			let sortColumn = "name"
 			let sortType = "asc"
 			if (sort) {
+				// "name.asc"
 				sortColumn = sort.split(".")[0]
 				sortType = sort.split(".")[1]
 			}

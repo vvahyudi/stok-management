@@ -35,7 +35,7 @@ module.exports = {
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
-				.select("*")
+				.select(`*, tb_products(name)`)
 				.eq("product_id", id)
 				.then((result) => {
 					if (!result.error) {
