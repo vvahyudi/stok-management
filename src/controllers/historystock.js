@@ -133,7 +133,7 @@ module.exports = {
 				return wrapper.response(
 					response,
 					404,
-					`Data With product id ${productId} Not Found`,
+					`Data With product id ${product_id} Not Found`,
 					[],
 				)
 			}
@@ -151,7 +151,7 @@ module.exports = {
 			return wrapper.response(
 				response,
 				200,
-				`Success Update Stock for product id ${id}`,
+				`Success Update Stock for product id ${product_id}`,
 				setData,
 			)
 		} catch (error) {
