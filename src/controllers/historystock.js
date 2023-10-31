@@ -44,12 +44,12 @@ module.exports = {
 					result.data,
 				)
 			}
-			console.log(result.data[0])
+
 			return wrapper.response(
 				response,
 				200,
 				`Success get History for product_id: ${id}`,
-				result.data,
+				result.data[0],
 			)
 		} catch (error) {
 			return wrapper.response(response, 500, error.message, error)
