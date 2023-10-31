@@ -49,7 +49,7 @@ module.exports = {
 				response,
 				200,
 				`Success get History for product_id: ${id}`,
-				result.data[0],
+				result.data,
 			)
 		} catch (error) {
 			return wrapper.response(response, 500, error.message, error)
