@@ -8,7 +8,7 @@ module.exports = {
 			let { page, limit, sort, search } = request.query
 			page = +page
 			limit = +limit
-			const totalData = await productModel.getCountProduct()
+			const totalData = await productModel.getCountProduct(search)
 			const totalPage = Math.ceil(totalData / limit)
 			const pagination = {
 				page,
