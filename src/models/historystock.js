@@ -6,7 +6,6 @@ module.exports = {
 			supabase
 				.from("tb_history_stock")
 				.select("*", { count: "exact" })
-
 				.then((result) => {
 					if (!result.error) {
 						resolve(result.count)
@@ -15,14 +14,14 @@ module.exports = {
 					}
 				})
 		}),
-	getAllHistoryStock: (offset, limit, sortBy, search, sortType) =>
+	getAllHistoryStock: (offset, limit) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
 				.select(`*,tb_products(name)`)
 				.range(offset, offset + limit - 1)
-				.order(sortBy, { ascending: sortType })
-				.like("product_id", `%${search}%`)
+				// .order(sortColumn, { ascending: sortType })
+				// .like("product_id", `%${search}%`)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result)

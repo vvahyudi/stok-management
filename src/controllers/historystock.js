@@ -5,10 +5,10 @@ const wrapper = require("../utils/wrapper")
 module.exports = {
 	getAllHistoryStock: async (request, response) => {
 		try {
-			let { page, limit, sort, search } = request.query
+			let { page, limit } = request.query
 			page = +page
 			limit = +limit
-			const totalData = await historyStockModel.getCountHistoryStock(search)
+			const totalData = await historyStockModel.getCountHistoryStock()
 			const totalPage = Math.ceil(totalData / limit)
 			const pagination = {
 				page,
@@ -17,25 +17,8 @@ module.exports = {
 				totalData,
 			}
 			const offset = (page - 1) * limit
-			let sortBy = "name"
-			let sortType = "asc"
-			if (sort) {
-				// "name.asc"
-				sortBy = sort.split(".")[0]
-				sortType = sort.split(".")[1]
-			}
-			if (sortType.toLowerCase() === "asc") {
-				sortType = true
-			} else {
-				sortType = false
-			}
-			const result = await historyStockModel.getAllHistoryStock(
-				offset,
-				limit,
-				sortBy,
-				search,
-				sortType,
-			)
+
+			const result = await historyStockModel.getAllHistoryStock(offset, limit)
 			console.log(result)
 			return wrapper.response(
 				response,
