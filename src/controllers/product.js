@@ -17,11 +17,11 @@ module.exports = {
 				totalData,
 			}
 			const offset = (page - 1) * limit
-			let sortColumn = "name"
-			let sortType = "asc"
+			let sortBy = sortBy
+			let sortType = sortType
 			if (sort) {
 				// "name.asc"
-				sortColumn = sort.split(".")[0]
+				sortBy = sort.split(".")[0]
 				sortType = sort.split(".")[1]
 			}
 			if (sortType.toLowerCase() === "asc") {
@@ -33,7 +33,7 @@ module.exports = {
 			const result = await productModel.getAllProduct(
 				offset,
 				limit,
-				sortColumn,
+				sortBy,
 				search,
 				sortType,
 			)

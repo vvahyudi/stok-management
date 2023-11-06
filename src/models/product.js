@@ -15,13 +15,13 @@ module.exports = {
 					}
 				})
 		}),
-	getAllProduct: (offset, limit, sortColumn, search, sortType) =>
+	getAllProduct: (offset, limit, sortBy, search, sortType) =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_products")
 				.select("*")
 				.range(offset, offset + limit - 1)
-				.order(sortColumn, { ascending: sortType })
+				.order(sortBy, { ascending: sortType })
 				.like("name", `%${search}%`)
 				.then((result) => {
 					if (!result.error) {
