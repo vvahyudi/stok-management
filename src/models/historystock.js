@@ -1,12 +1,12 @@
 const supabase = require("../config/supabase")
 
 module.exports = {
-	getCountHistoryStock: (search) =>
+	getCountHistoryStock: () =>
 		new Promise((resolve, reject) => {
 			supabase
 				.from("tb_history_stock")
 				.select("*", { count: "exact" })
-				.ilike("product_id", `%${search}%`)
+
 				.then((result) => {
 					if (!result.error) {
 						resolve(result.count)
