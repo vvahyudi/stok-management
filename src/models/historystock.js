@@ -6,7 +6,7 @@ module.exports = {
 			supabase
 				.from("tb_history_stock")
 				.select("*", { count: "exact" })
-				.ilike("tb_products(name)", `%${search}%`)
+				.ilike("product_id", `%${search}%`)
 				.then((result) => {
 					if (!result.error) {
 						resolve(result.count)
