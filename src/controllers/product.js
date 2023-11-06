@@ -19,6 +19,7 @@ module.exports = {
 			const offset = (page - 1) * limit
 			let sortBy = "name"
 			let sortType = "asc"
+			console.log(sort)
 			if (sort) {
 				// "name.asc"
 				sortBy = sort.split(".")[0]
