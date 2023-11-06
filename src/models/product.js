@@ -6,6 +6,7 @@ module.exports = {
 			supabase
 				.from("tb_products")
 				.select("*", { count: "exact" })
+				.order(sortBy, { ascending: sortType })
 				.like("name", `%${search}%`)
 				.then((result) => {
 					if (!result.error) {
